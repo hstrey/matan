@@ -112,29 +112,31 @@ int main() {
 // class defintions here if you wish.
 
 // list<Data *> SortedMerge(list<Data *> a, list<Data *> b);
-// void FrontBackSplit(list<Data *> source,
-//                     list<Data *> frontRef, list<Data *> backRef);
+void FrontBackSplit(list<Data *> &source,
+                    list<Data *> &frontRef, list<Data *> &backRef);
 
 void sortDataList(list<Data *> &l) {
   // Fill this in
     cout << "size of list " << l.size() << "\n";
 
-    cout << "list contains: \n";
-    for (list<Data *>::iterator it=l.begin(); it != l.end(); it++)
-        cout << (*it)->ssn << "\n";
+    // cout << "list contains: \n";
+    // for (list<Data *>::iterator it=l.begin(); it != l.end(); it++)
+    //     cout << (*it)->ssn << "\n";
 
-    // if ((l.size() == 0) || (l.size() == 1)) {
-    //     return;
-    // }
-    // list<Data *> a;
-    // list<Data *> b;
-    // FrontBackSplit(&l, &a, &b);
+    if ((l.size() == 0) || (l.size() == 1)) {
+         return;
+    }
 
-    // sortDataList(&a);
-    // sortDataList(&b);
+    list<Data *> a;
+    list<Data *> b;
+    FrontBackSplit(l, a, b);
+    cout << "size of list a: " << a.size() << "\n";
+    cout << "size of list b: " << b.size() << "\n";
 
-    // l = SortedMerge(a, b)
+    sortDataList(a);
+    sortDataList(b);
 
+//  l = SortedMerge(a, b)
 }
 
 // list<Data *> SortedMerge(list<Data *> a, list<Data *> b)
@@ -159,26 +161,17 @@ void sortDataList(list<Data *> &l) {
 //     return (result);
 // }
 
-// void FrontBackSplit(list<Data *> source,
-//                     list<Data *> frontRef, list<Data *> backRef)
-// {
-//     list<Data *> fast;
-//     list<Data *> slow;
-//     slow = source;
-//     fast = source->next;
+// split source into two lists at half length
+void FrontBackSplit(list<Data *> &source,
+                     list<Data *> &frontRef, list<Data *> &backRef)
+{
+    list<Data *> list2;
+
+    list2.splice( list2.begin(),
+                  source,
+                  source.begin(),
+                  next(source.begin(),source.size()/2));
  
-//     /* Advance 'fast' two nodes, and advance 'slow' one node */
-//     while (fast != NULL) {
-//         fast = fast->next;
-//         if (fast != NULL) {
-//             slow = slow->next;
-//             fast = fast->next;
-//         }
-//     }
- 
-//     /* 'slow' is before the midpoint in the list, so split it in two
-//     at that point. */
-//     *frontRef = source;
-//     *backRef = slow->next;
-//     slow->next = NULL;
-// }
+    frontRef = list2;
+    backRef = source;
+}
