@@ -117,11 +117,6 @@ void FrontBackSplit(list<Data *> &source,
 
 void sortDataList(list<Data *> &l) {
   // Fill this in
-    // cout << "size of list " << l.size() << "\n";
-
-    // cout << "list contains: \n";
-    // for (list<Data *>::iterator it=l.begin(); it != l.end(); it++)
-    //     cout << (*it)->ssn << "\n";
 
     if ((l.size() == 0) || (l.size() == 1)) {
          return;
@@ -129,19 +124,16 @@ void sortDataList(list<Data *> &l) {
 
     list<Data *> a;
     list<Data *> b;
+
     FrontBackSplit(l, a, b);
-    // cout << "size of list a: " << a.size() << "\n";
-    // cout << "size of list b: " << b.size() << "\n";
 
     sortDataList(a);
     sortDataList(b);
 
     l = SortedMerge(a, b);
-    // cout << "list contains: \n";
-    // for (list<Data *>::iterator it=l.begin(); it != l.end(); it++)
-    // cout << (*it)->lastName << "\n";
 }
 
+// function to determine whether dataset a is less or equal to b
 bool lessOrEqual(Data* &a, Data* &b) {
     if (a->lastName == b->lastName) {
         if (a->firstName == b->firstName) {
@@ -167,6 +159,7 @@ bool lessOrEqual(Data* &a, Data* &b) {
     }
 }
 
+// function to merge two sorted lists into a sorted list
 list<Data *> SortedMerge(list<Data *> &a, list<Data *> &b)
 {
     list<Data *> result;
